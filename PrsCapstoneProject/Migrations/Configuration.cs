@@ -22,8 +22,17 @@ namespace PrsCapstoneProject.Migrations
 
 			//if (System.Diagnostics.Debugger.IsAttached == false)
 			//	System.Diagnostics.Debugger.Launch();
-			var user = new User(0, "sa", "as", "Super", "Admin", "", "", true, true, true);
+			
 			context.Users.AddOrUpdate(
+				new User(0, "sa", "as", "Super", "Admin", "513-555-1212", "sa@admin.com", true, true, true)
+			);
+			context.Vendors.AddOrUpdate(
+				new Vendor(0, "AMAZ", "Amazon", "123 Street", "AnyCity", "CA", "12345", "987-555-1212", "info@amazon.com", true, true)
+			);
+			var AmazonId = context.Vendors.Where(v => v.Code == "AMAZ").ToArray()[0].Id;
+			context.Products.AddOrUpdate(
+				new Product(0, AmazonId, "Echo", "Echo", 79.99m, "Each", null, true),
+				new Product(0, AmazonId, "Echo Dot", "Echo Dot", 49.99m, "Each", null, true)
 			);
         }
     }

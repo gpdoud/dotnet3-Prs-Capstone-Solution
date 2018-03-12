@@ -9,46 +9,33 @@ using Utility;
 
 namespace PrsCapstoneProject.Controllers
 {
-    public class UsersController : Controller
+    public class PurchaseRequestsController : Controller
     {
 		private PrsDbContext db = new PrsDbContext();
 
-		// GET: Users/Login/username/password
-		public ActionResult Login(string username, string password) {
-			if(username == null || password == null) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "Invalid username/password." } };
-			}
-			var user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
-			if (user == null) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "Invalid username/password." } };
-			}
-			return new JsonNetResult { Data = new Msg { Result = "Success", Message = "Login successful.", Data = user } };
+		// GET: PurchaseRequests/List
+		public ActionResult List() {
+			return new JsonNetResult { Data = db.PurchaseRequests.ToList() };
 		}
 
-		// GET: Users/List
-		public ActionResult List() {
-			return new JsonNetResult { Data = db.Users.ToList() };
-        }
-
-		// GET: Users/Get/5
+		// GET: PurchaseRequests/Get/5
 		public ActionResult Get(int? id) {
 			if (id == null) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "Id cannot be null." } }; 
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "Id cannot be null." } };
 			}
-			var user = db.Users.Find(id);
-			if(user == null) {
+			var purchaseRequest = db.PurchaseRequests.Find(id);
+			if (purchaseRequest == null) {
 				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "Id not found." } };
 			}
-			return new JsonNetResult { Data = user };
+			return new JsonNetResult { Data = purchaseRequest };
 		}
 
-		// POST: Users/Create
-		public ActionResult Create([FromBody] User user) {
-			user.DateCreated = DateTime.Now;
-			if(!ModelState.IsValid) {
+		// POST: PurchaseRequests/Create
+		public ActionResult Create([FromBody] PurchaseRequest purchaseRequest) {
+			if (!ModelState.IsValid) {
 				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
 			}
-			db.Users.Add(user);
+			db.PurchaseRequests.Add(purchaseRequest);
 			try {
 				db.SaveChanges();
 			} catch (Exception ex) {
@@ -57,13 +44,13 @@ namespace PrsCapstoneProject.Controllers
 			return new JsonNetResult { Data = new Msg { Result = "Success", Message = "Created." } };
 		}
 
-		// POST: Users/Change
-		public ActionResult Change([FromBody] User user) {
+		// POST: PurchaseRequests/Change
+		public ActionResult Change([FromBody] PurchaseRequest purchaseRequest) {
 			if (!ModelState.IsValid) {
 				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
 			}
-			var user2 = db.Users.Find(user.Id);
-			user2.Copy(user);
+			var purchaseRequest2 = db.PurchaseRequests.Find(purchaseRequest.Id);
+			purchaseRequest2.Copy(purchaseRequest);
 			try {
 				db.SaveChanges();
 			} catch (Exception ex) {
@@ -72,13 +59,13 @@ namespace PrsCapstoneProject.Controllers
 			return new JsonNetResult { Data = new Msg { Result = "Success", Message = "Changed." } };
 		}
 
-		// POST: Users/Remove
-		public ActionResult Remove([FromBody] User user) {
+		// POST: PurchaseRequests/Remove
+		public ActionResult Remove([FromBody] PurchaseRequest purchaseRequest) {
 			if (!ModelState.IsValid) {
 				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
 			}
-			var user2 = db.Users.Find(user.Id);
-			db.Users.Remove(user2);
+			var purchaseRequest2 = db.PurchaseRequests.Find(purchaseRequest.Id);
+			db.PurchaseRequests.Remove(purchaseRequest2);
 			try {
 				db.SaveChanges();
 			} catch (Exception ex) {
@@ -86,6 +73,5 @@ namespace PrsCapstoneProject.Controllers
 			}
 			return new JsonNetResult { Data = new Msg { Result = "Success", Message = "Removed." } };
 		}
-
 	}
 }
