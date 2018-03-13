@@ -24,16 +24,19 @@ namespace PrsCapstoneProject.Migrations
 			//	System.Diagnostics.Debugger.Launch();
 			
 			context.Users.AddOrUpdate(
+				u => u.Username,
 				new User(0, "sa", "as", "Super", "Admin", "513-555-1212", "sa@admin.com", true, true, true)
 			);
 			context.Vendors.AddOrUpdate(
+				v => v.Code,
 				new Vendor(0, "AMAZ", "Amazon", "123 Street", "AnyCity", "CA", "12345", "987-555-1212", "info@amazon.com", true, true)
 			);
 			var AmazonId = context.Vendors.Where(v => v.Code == "AMAZ").ToArray()[0].Id;
 			context.Products.AddOrUpdate(
+				p => p.PartNumber,
 				new Product(0, AmazonId, "Echo", "Echo", 79.99m, "Each", null, true),
 				new Product(0, AmazonId, "Echo Dot", "Echo Dot", 49.99m, "Each", null, true)
 			);
-        }
+		}
     }
 }

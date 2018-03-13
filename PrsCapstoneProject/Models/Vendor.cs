@@ -9,7 +9,7 @@ namespace PrsCapstoneProject.Models {
 
 	public class Vendor {
 		public int Id { get; set; }
-		[Index]
+		[Index("IDX_VendorCode", IsUnique = true)]
 		[Required]
 		[StringLength(20)]
 		public string Code { get; set; }

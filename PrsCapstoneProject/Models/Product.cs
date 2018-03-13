@@ -19,6 +19,7 @@ namespace PrsCapstoneProject.Models {
 		[Required]
 		[StringLength(50)]
 		public string Unit { get; set; } = "EACH";
+		[StringLength(50)]
 		public string PhotoPath { get; set; }
 		public bool Active { get; set; } = true;
 		public DateTime DateCreated { get; set; } = DateTime.Now;

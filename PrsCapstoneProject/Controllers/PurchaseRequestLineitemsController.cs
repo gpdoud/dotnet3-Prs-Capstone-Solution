@@ -14,9 +14,9 @@ namespace PrsCapstoneProject.Controllers
 		private PrsDbContext db = new PrsDbContext();
 
 		private void CalculatePurchaseRequestTotal(int prId) {
-			var pr = db.PurchaseRequests.Find(prId);
-			pr.Total = db.PurchaseRequestLineitems
-				.Where(prli => prli.PurchaseRequestId == pr.Id)
+			db = new PrsDbContext();
+			var purchaseRequest = db.PurchaseRequests.Find(prId);
+			purchaseRequest.Total = purchaseRequest.PurchaseRequestLineitems
 				.Sum(prli => prli.Quantity * prli.Product.Price);
 			try {
 				db.SaveChanges();

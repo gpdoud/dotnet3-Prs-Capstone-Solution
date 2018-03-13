@@ -185,9 +185,9 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchaseRequestLineitemsController.cs" />
-    <Compile Include="Migrations\201803121528184_Added PurchaseRequestLineitem and DbContext.cs" />
-    <Compile Include="Migrations\201803121528184_Added PurchaseRequestLineitem and DbContext.Designer.cs">
-      <DependentUpon>201803121528184_Added PurchaseRequestLineitem and DbContext.cs</DependentUpon>
+    <Compile Include="Migrations\201803131412332_Initialization.cs" />
+    <Compile Include="Migrations\201803131412332_Initialization.Designer.cs">
+      <DependentUpon>201803131412332_Initialization.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchaseRequestLineitem.cs" />
     <Compile Include="Controllers\PurchaseRequestsController.cs" />
@@ -196,30 +196,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803121343259_Added Vendor.cs" />
-    <Compile Include="Migrations\201803121343259_Added Vendor.Designer.cs">
-      <DependentUpon>201803121343259_Added Vendor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803121402573_Added Product.cs" />
-    <Compile Include="Migrations\201803121402573_Added Product.Designer.cs">
-      <DependentUpon>201803121402573_Added Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803121427465_Added PurchaseRequest and added attributes to Product.cs" />
-    <Compile Include="Migrations\201803121427465_Added PurchaseRequest and added attributes to Product.Designer.cs">
-      <DependentUpon>201803121427465_Added PurchaseRequest and added attributes to Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803121525080_Added PurchaseRequestLineitem.cs" />
-    <Compile Include="Migrations\201803121525080_Added PurchaseRequestLineitem.Designer.cs">
-      <DependentUpon>201803121525080_Added PurchaseRequestLineitem.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PurchaseRequest.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Utility\JsonMsg.cs" />
-    <Compile Include="Migrations\201803092224379_initialization.cs" />
-    <Compile Include="Migrations\201803092224379_initialization.Designer.cs">
-      <DependentUpon>201803092224379_initialization.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PrsDbContext.cs" />
     <Compile Include="Models\User.cs" />
@@ -302,23 +282,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803092224379_initialization.resx">
-      <DependentUpon>201803092224379_initialization.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121343259_Added Vendor.resx">
-      <DependentUpon>201803121343259_Added Vendor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121402573_Added Product.resx">
-      <DependentUpon>201803121402573_Added Product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121427465_Added PurchaseRequest and added attributes to Product.resx">
-      <DependentUpon>201803121427465_Added PurchaseRequest and added attributes to Product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121525080_Added PurchaseRequestLineitem.resx">
-      <DependentUpon>201803121525080_Added PurchaseRequestLineitem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121528184_Added PurchaseRequestLineitem and DbContext.resx">
-      <DependentUpon>201803121528184_Added PurchaseRequestLineitem and DbContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803131412332_Initialization.resx">
+      <DependentUpon>201803131412332_Initialization.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
