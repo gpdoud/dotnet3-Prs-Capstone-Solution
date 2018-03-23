@@ -1,4 +1,5 @@
 ﻿using PrsCapstoneProject.Models;
+using PrsCapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,8 @@ namespace PrsCapstoneProject.Controllers
 		public ActionResult Create([FromBody] User user) {
 			user.DateCreated = DateTime.Now;
 			if(!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			db.Users.Add(user);
 			try {
