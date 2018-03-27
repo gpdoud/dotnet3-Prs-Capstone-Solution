@@ -16,7 +16,7 @@ namespace PrsCapstoneProject.Utility {
 				if(values[idx].Errors.Count > 0) {
 					var key = keys[idx];
 					var value = values[idx];
-					errorMessages.Add($"{key} has an error with value of [{value.Value.AttemptedValue ?? "null"}]");
+					errorMessages.Add($"{key} has an error with value of [{value?.Value?.AttemptedValue ?? "null"}]");
 				}
 			}
 			return errorMessages;

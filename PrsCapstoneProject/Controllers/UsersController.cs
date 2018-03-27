@@ -62,7 +62,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Users/Change
 		public ActionResult Change([FromBody] User user) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var user2 = db.Users.Find(user.Id);
 			user2.Copy(user);
@@ -77,7 +78,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Users/Remove
 		public ActionResult Remove([FromBody] User user) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var user2 = db.Users.Find(user.Id);
 			db.Users.Remove(user2);

@@ -1,4 +1,5 @@
 ﻿using PrsCapstoneProject.Models;
+using PrsCapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace PrsCapstoneProject.Controllers
     public class PurchaseRequestsController : Controller
     {
 		private PrsDbContext db = new PrsDbContext();
+
+		// GET: PurchaseRequests/ReviewList
+		public ActionResult ReviewList() {
+			return new JsonNetResult { Data = db.PurchaseRequests.Where(pr => pr.Status.Equals("REVIEW")).ToList() };
+		}
 
 		// GET: PurchaseRequests/List
 		public ActionResult List() {
@@ -33,7 +39,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: PurchaseRequests/Create
 		public ActionResult Create([FromBody] PurchaseRequest purchaseRequest) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			db.PurchaseRequests.Add(purchaseRequest);
 			try {
@@ -47,7 +54,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: PurchaseRequests/Change
 		public ActionResult Change([FromBody] PurchaseRequest purchaseRequest) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var purchaseRequest2 = db.PurchaseRequests.Find(purchaseRequest.Id);
 			purchaseRequest2.Copy(purchaseRequest);
@@ -62,7 +70,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: PurchaseRequests/Remove
 		public ActionResult Remove([FromBody] PurchaseRequest purchaseRequest) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var purchaseRequest2 = db.PurchaseRequests.Find(purchaseRequest.Id);
 			db.PurchaseRequests.Remove(purchaseRequest2);

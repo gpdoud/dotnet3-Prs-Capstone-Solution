@@ -1,4 +1,5 @@
 ﻿using PrsCapstoneProject.Models;
+using PrsCapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Products/Create
 		public ActionResult Create([FromBody] Product product) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			db.Products.Add(product);
 			try {
@@ -47,7 +49,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Products/Change
 		public ActionResult Change([FromBody] Product product) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var product2 = db.Products.Find(product.Id);
 			product2.Copy(product);
@@ -62,7 +65,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Products/Remove
 		public ActionResult Remove([FromBody] Product product) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var product2 = db.Products.Find(product.Id);
 			db.Products.Remove(product2);

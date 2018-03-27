@@ -1,4 +1,5 @@
 ﻿using PrsCapstoneProject.Models;
+using PrsCapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: PurchaseRequestLineitems/Create
 		public ActionResult Create([FromBody] PurchaseRequestLineitem purchaseRequestLineitem) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			db.PurchaseRequestLineitems.Add(purchaseRequestLineitem);
 			try {
@@ -59,8 +61,9 @@ namespace PrsCapstoneProject.Controllers
 
 		// POST: PurchaseRequestLineitems/Change
 		public ActionResult Change([FromBody] PurchaseRequestLineitem purchaseRequestLineitem) {
-			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+			if (!ModelState.IsValid || purchaseRequestLineitem.Quantity == 0) {
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var purchaseRequest2 = db.PurchaseRequestLineitems.Find(purchaseRequestLineitem.Id);
 			purchaseRequest2.Copy(purchaseRequestLineitem);
@@ -76,7 +79,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: PurchaseRequestLineitems/Remove
 		public ActionResult Remove([FromBody] PurchaseRequestLineitem purchaseRequestLineitem) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var purchaseRequest2 = db.PurchaseRequestLineitems.Find(purchaseRequestLineitem.Id);
 			db.PurchaseRequestLineitems.Remove(purchaseRequest2);

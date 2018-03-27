@@ -1,4 +1,5 @@
 ﻿using PrsCapstoneProject.Models;
+using PrsCapstoneProject.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Vendors/Create
 		public ActionResult Create([FromBody] Vendor vendor) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			db.Vendors.Add(vendor);
 			try {
@@ -47,7 +49,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Vendors/Change
 		public ActionResult Change([FromBody] Vendor vendor) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var vendor2 = db.Vendors.Find(vendor.Id);
 			vendor2.Copy(vendor);
@@ -62,7 +65,8 @@ namespace PrsCapstoneProject.Controllers
 		// POST: Vendors/Remove
 		public ActionResult Remove([FromBody] Vendor vendor) {
 			if (!ModelState.IsValid) {
-				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = ModelState } };
+				var errorMessages = ModelStateErrors.GetModelStateErrors(ModelState);
+				return new JsonNetResult { Data = new Msg { Result = "Failed", Message = "ModelState invalid.", Data = errorMessages } };
 			}
 			var vendor2 = db.Vendors.Find(vendor.Id);
 			db.Vendors.Remove(vendor2);
