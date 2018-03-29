@@ -199,6 +199,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PurchaseRequest.cs" />
     <Compile Include="Models\Vendor.cs" />
+    <Compile Include="Utility\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Utility\JsonMsg.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PrsDbContext.cs" />

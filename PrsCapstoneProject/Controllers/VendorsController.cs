@@ -10,7 +10,8 @@ using Utility;
 
 namespace PrsCapstoneProject.Controllers
 {
-    public class VendorsController : Controller
+	[AllowCrossSiteJson]
+	public class VendorsController : Controller
     {
 		private PrsDbContext db = new PrsDbContext();
 
